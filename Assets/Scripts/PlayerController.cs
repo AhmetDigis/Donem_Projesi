@@ -10,12 +10,14 @@ public class PlayerController : MonoBehaviour
 
     public Animator playerAnimator;
 
+    Camera MainCam;
 
+    private float rotationSpeed = 10;
     private float multiplier = 1;
     private int weaponCount = 3;
     public int lastLayerIndex = 0;
 
-    public static Action<float> OnCameraLookUpDown;
+
 
     Rigidbody playerJump;
 
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         health = 100;
+        MainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -97,7 +100,9 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetFloat("LeftAndRight", hor * multiplier);
 
         transform.rotation *= Quaternion.Euler(0, mouseX, 0);
-        OnCameraLookUpDown(mouseY);
+
+
+        InputCameraRotation();
 
     }
 
@@ -124,10 +129,19 @@ public class PlayerController : MonoBehaviour
         weapons[aLayerIndex - 1].SetActive(true);
     }
 
-    public void healthStatus(float impact){
+    public void healthStatus(float impact)
+    {
 
         health -= impact;
-        healthBar.fillAmount = health /100;
+        healthBar.fillAmount = health / 100;
+    }
+
+    void InputCameraRotation()
+    {
+
+        Vector3 camOfset = MainCam.transform.forward;
+        camOfset.y = 0;
+        transform.forward = Vector3.Slerp(transform.forward, camOfset, Time.deltaTime * rotationSpeed);
     }
 
 
