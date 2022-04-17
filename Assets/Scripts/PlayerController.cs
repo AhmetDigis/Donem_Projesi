@@ -144,5 +144,5 @@ public class PlayerController : MonoBehaviour
         transform.forward = Vector3.Slerp(transform.forward, camOfset, Time.deltaTime * rotationSpeed);
     }
 
-
+    
 }
