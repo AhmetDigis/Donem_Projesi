@@ -23,9 +23,9 @@ public class RifleScript : MonoBehaviour
     [Header("General Settings")]
     public Camera MyCamera;
 
-    int totalBullet = 30;
+    int totalBullet = 300;
 
-    int magazineCapacity = 5;
+    int magazineCapacity = 30;
     int bulletsRemaining;
     float impactStrength = 25;
     public TextMeshProUGUI Rounds_Total;
