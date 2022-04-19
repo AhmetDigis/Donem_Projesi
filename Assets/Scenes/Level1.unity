@@ -3586,6 +3586,14 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5800563972427644871, guid: e6faad9ee7b4b134495dd00f22d25285, type: 3}
+      propertyPath: m_Acceleration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800563972427644871, guid: e6faad9ee7b4b134495dd00f22d25285, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 6984725812562826639, guid: e6faad9ee7b4b134495dd00f22d25285, type: 3}
       propertyPath: m_Name
       value: Enemy1
