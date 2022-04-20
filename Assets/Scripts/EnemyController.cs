@@ -5,13 +5,22 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    [Header("General Settings")]
     NavMeshAgent navMesh;
     Animator enemyAnimator;
     GameObject target;
     float fireDistance = 7;
     float SuspectDistance = 10;
-
     Vector3 startingPoint;
+
+    [Header("Patrol Settings")]
+    public GameObject[] PatrolPoints_1;
+    public GameObject[] PatrolPoints_2;
+    public GameObject[] PatrolPoints_3;
+    public bool isPatrol;
+    Coroutine patrol;
+
+
     bool isFire = false;
     bool isSuspect = false;
 
@@ -20,15 +29,73 @@ public class EnemyController : MonoBehaviour
     {
         navMesh = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
-        //enemyAnimator.SetBool("walk", true);
         startingPoint = transform.position;
+
     }
+
+
+
+    IEnumerator PatrolTecnicalProcess()
+    {
+
+        int totalPoint = PatrolPoints_1.Length - 1;
+        int initialValue = 0;
+
+
+        while (true)
+        {
+
+            if (Vector3.Distance(transform.position, PatrolPoints_1[initialValue].transform.position) <= 1f)
+            {
+                if (totalPoint > initialValue)
+                {
+
+                    ++initialValue;
+                    navMesh.SetDestination(PatrolPoints_1[initialValue].transform.position);
+
+                }
+                else
+                {
+                    navMesh.stoppingDistance = 1;
+                    navMesh.SetDestination(startingPoint);
+                    if (navMesh.remainingDistance <= 1)
+                    {
+                        enemyAnimator.SetBool("walk", false);
+                        transform.rotation = Quaternion.Euler(0, 180, 0);
+                        isPatrol = false;
+                        StopCoroutine(patrol);
+                    }
+                }
+
+            }
+            else
+            {
+                if (totalPoint > initialValue)
+                {
+
+                    navMesh.SetDestination(PatrolPoints_1[initialValue].transform.position);
+
+                }
+            }
+
+            yield return null;
+        }
+
+    }
+
 
 
     void LateUpdate()
     {
+
+        if (isPatrol)
+        {
+            patrol = StartCoroutine(PatrolTecnicalProcess());
+        }
+
         SuspectRange();
         FiringRange();
+
 
     }
 
@@ -44,14 +111,14 @@ public class EnemyController : MonoBehaviour
             if (otherObject.gameObject.CompareTag("Player"))
             {
                 enemyAnimator.SetBool("walk", false);
-                navMesh.isStopped=true;
+                navMesh.isStopped = true;
                 enemyAnimator.SetBool("fireIdle", true);
 
             }
             else
-            {               
+            {
                 enemyAnimator.SetBool("fireIdle", false);
-                
+
             }
 
         }
@@ -111,8 +178,5 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, SuspectDistance);
     }
 
-    void Update()
-    {
 
-    }
 }
