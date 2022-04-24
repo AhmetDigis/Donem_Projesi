@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,8 +16,13 @@ public class EnemyController : MonoBehaviour
     public GameObject[] PatrolPoints_1;
     public GameObject[] PatrolPoints_2;
     public GameObject[] PatrolPoints_3;
-    public bool isPatrol;
+
+    GameObject[] activePatrolList;
+    bool isPatrol;
     Coroutine patrol;
+    Coroutine patrolTime;
+    bool patrolLock;
+    public bool canPatrol;
 
 
     bool isFire = false;
@@ -30,41 +34,80 @@ public class EnemyController : MonoBehaviour
         navMesh = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
         startingPoint = transform.position;
+        StartCoroutine(patrolTimeControl());
+
+    }
+
+    GameObject[] patrolControl()
+    {
+
+        int rendomValue = Random.Range(1, 3);
+
+        switch (rendomValue)
+        {
+
+            case 1:
+                activePatrolList = PatrolPoints_1;
+                break;
+            case 2:
+                activePatrolList = PatrolPoints_2;
+                break;
+            case 3:
+                activePatrolList = PatrolPoints_3;
+                break;
+
+        }
+        return activePatrolList;
+
+    }
+
+
+    IEnumerator patrolTimeControl()
+    {
+
+        while (true && !isPatrol && canPatrol)
+        {
+
+            yield return new WaitForSeconds(5f);
+            patrolLock = true;
+            StopCoroutine(patrolTime);
+
+        }
+
 
     }
 
 
 
-    IEnumerator PatrolTecnicalProcess()
+
+    IEnumerator PatrolTecnicalProcess(GameObject[] incomingObject)
     {
-
-        int totalPoint = PatrolPoints_1.Length - 1;
+        navMesh.isStopped = false;
+        patrolLock = false;
+        isPatrol = true;
+        enemyAnimator.SetBool("walk", true);
+        int totalPoint = incomingObject.Length - 1;
         int initialValue = 0;
+        navMesh.SetDestination(incomingObject[initialValue].transform.position);
 
 
-        while (true)
+        while (true && canPatrol)
         {
 
-            if (Vector3.Distance(transform.position, PatrolPoints_1[initialValue].transform.position) <= 1f)
+            if (Vector3.Distance(transform.position, incomingObject[initialValue].transform.position) <= 1f)
             {
                 if (totalPoint > initialValue)
                 {
 
                     ++initialValue;
-                    navMesh.SetDestination(PatrolPoints_1[initialValue].transform.position);
+                    navMesh.SetDestination(incomingObject[initialValue].transform.position);
 
                 }
                 else
                 {
                     navMesh.stoppingDistance = 1;
                     navMesh.SetDestination(startingPoint);
-                    if (navMesh.remainingDistance <= 1)
-                    {
-                        enemyAnimator.SetBool("walk", false);
-                        transform.rotation = Quaternion.Euler(0, 180, 0);
-                        isPatrol = false;
-                        StopCoroutine(patrol);
-                    }
+
                 }
 
             }
@@ -73,7 +116,7 @@ public class EnemyController : MonoBehaviour
                 if (totalPoint > initialValue)
                 {
 
-                    navMesh.SetDestination(PatrolPoints_1[initialValue].transform.position);
+                    navMesh.SetDestination(incomingObject[initialValue].transform.position);
 
                 }
             }
@@ -88,13 +131,30 @@ public class EnemyController : MonoBehaviour
     void LateUpdate()
     {
 
-        if (isPatrol)
+        if (navMesh.stoppingDistance == 1 && navMesh.remainingDistance <= 1)
         {
-            patrol = StartCoroutine(PatrolTecnicalProcess());
+            navMesh.isStopped = false;
+            enemyAnimator.SetBool("walk", false);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            isPatrol = false;
+            patrolTime = StartCoroutine(patrolTimeControl());
+            StopCoroutine(patrol);
+            navMesh.stoppingDistance = 0;
+            navMesh.isStopped = true;
+        }
+
+
+
+
+        if (patrolLock && canPatrol)
+        {
+            patrol = StartCoroutine(PatrolTecnicalProcess(patrolControl()));
+
+
         }
 
         SuspectRange();
-        FiringRange();
+        //FiringRange();
 
 
     }
@@ -138,28 +198,41 @@ public class EnemyController : MonoBehaviour
 
             if (otherObject.gameObject.CompareTag("Player"))
             {
-                isSuspect = true;
+
                 enemyAnimator.SetBool("walk", true);
                 target = otherObject.gameObject;
                 navMesh.SetDestination(otherObject.transform.position);
+                isSuspect = true;
+                StopCoroutine(patrol);
 
             }
             else
             {
-                target = null;
-                isSuspect = false;
-                if (transform.position != startingPoint)
+                if (isSuspect)
                 {
 
-                    navMesh.stoppingDistance = 1;
-                    navMesh.SetDestination(startingPoint);
-                    if (navMesh.remainingDistance <= 1)
+                    target = null;
+                    
+
+                    if (transform.position != startingPoint)
                     {
-                        enemyAnimator.SetBool("walk", false);
-                        transform.rotation = Quaternion.Euler(0, 180, 0);
+
+                        navMesh.stoppingDistance = 1;
+                        navMesh.SetDestination(startingPoint);
+                        if (navMesh.remainingDistance <= 1)
+                        {
+                            enemyAnimator.SetBool("walk", false);
+                            transform.rotation = Quaternion.Euler(0, 180, 0);
+                        }
+
                     }
 
+                    isSuspect = false;
+                    patrol = StartCoroutine(PatrolTecnicalProcess(patrolControl())); //bunu kaldırırsam yalnızca hedefe odaklanıyor devriyeye geri dönmüyor
                 }
+
+
+
 
             }
 
