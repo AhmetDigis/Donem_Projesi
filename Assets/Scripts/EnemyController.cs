@@ -16,6 +16,8 @@ public class EnemyController : MonoBehaviour
     bool isSuspect = false;
     bool isFire = false;
 
+    public GameObject firePoint;
+
     [Header("Patrol Settings")]
     public GameObject[] PatrolPoints_1;
     public GameObject[] PatrolPoints_2;
@@ -191,6 +193,8 @@ public class EnemyController : MonoBehaviour
             if (otherObject.gameObject.CompareTag("Player"))
             {
 
+                
+                
                 RifleFire(otherObject.gameObject);
 
 
@@ -203,11 +207,11 @@ public class EnemyController : MonoBehaviour
                     enemyAnimator.SetBool("fireIdle", false);
                     navMesh.isStopped = false;
                     enemyAnimator.SetBool("walk", true);
-                    
-                    
+
+
                     isFire = false;
-                    
-                    
+
+
 
                 }
 
@@ -223,15 +227,37 @@ public class EnemyController : MonoBehaviour
     {
 
         isFire = true;
-        
-        
+
+
         Vector3 distanceObjects = target.gameObject.transform.position - transform.position;
         Quaternion rotationObject = Quaternion.LookRotation(distanceObjects, Vector3.up);
         transform.rotation = rotationObject;
         enemyAnimator.SetBool("walk", false);
         navMesh.isStopped = true;
         enemyAnimator.SetBool("fireIdle", true);
-        
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(firePoint.transform.position, firePoint.transform.forward, out hit, range))
+        {
+            Color colorBlue = Color.blue;
+            Vector3 changePosition=new Vector3(target.transform.position.x,target.transform.position.y+1.2f,target.transform.position.z);
+            Debug.DrawLine(firePoint.transform.position, changePosition, colorBlue);
+
+            if (Time.time > feverFrequency_1)
+            {
+                
+                hit.transform.gameObject.GetComponent<PlayerController>().healthStatus(impactStrength);
+                Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
+                feverFrequency_1 = Time.time + feverFrequency_2;
+
+            }
+
+            
+            
+
+        }
+
 
 
     }

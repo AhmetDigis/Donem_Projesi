@@ -134,6 +134,9 @@ public class PlayerController : MonoBehaviour
 
         health -= impact;
         healthBar.fillAmount = health / 100;
+
+        if (health <= 0)
+            Debug.Log("Died");
     }
 
     void InputCameraRotation()
@@ -144,5 +147,5 @@ public class PlayerController : MonoBehaviour
         transform.forward = Vector3.Slerp(transform.forward, camOfset, Time.deltaTime * rotationSpeed);
     }
 
-    
+
 }
