@@ -4,20 +4,40 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("General Settings")]
+    [Header("Other Settings")]
     NavMeshAgent navMesh;
     Animator enemyAnimator;
     GameObject target;
+
+    [Header("General Settings")]
     float fireDistance = 7;
     float SuspectDistance = 10;
     Vector3 startingPoint;
+    bool isSuspect = false;
+    bool isFire = false;
 
     [Header("Patrol Settings")]
     public GameObject[] PatrolPoints_1;
     public GameObject[] PatrolPoints_2;
     public GameObject[] PatrolPoints_3;
-
     GameObject[] activePatrolList;
+
+
+    [Header("Gun Settings")]
+    float feverFrequency_1;
+    public float feverFrequency_2;
+    public float range;
+    public float impactStrength;
+
+    [Header("Sounds")]
+
+    public AudioSource[] sounds;
+
+    [Header("Effects")]
+
+    public ParticleSystem[] effects;
+
+
     bool isPatrol;
     Coroutine patrol;
     Coroutine patrolTime;
@@ -25,8 +45,8 @@ public class EnemyController : MonoBehaviour
     public bool canPatrol;
 
 
-    bool isFire = false;
-    bool isSuspect = false;
+
+
 
 
     void Start()
@@ -154,7 +174,7 @@ public class EnemyController : MonoBehaviour
         }
 
         SuspectRange();
-        //FiringRange();
+        FiringRange();
 
 
     }
@@ -170,18 +190,48 @@ public class EnemyController : MonoBehaviour
 
             if (otherObject.gameObject.CompareTag("Player"))
             {
-                enemyAnimator.SetBool("walk", false);
-                navMesh.isStopped = true;
-                enemyAnimator.SetBool("fireIdle", true);
+
+                RifleFire(otherObject.gameObject);
+
 
             }
             else
             {
-                enemyAnimator.SetBool("fireIdle", false);
+                if (isFire)
+                {
+
+                    enemyAnimator.SetBool("fireIdle", false);
+                    navMesh.isStopped = false;
+                    enemyAnimator.SetBool("walk", true);
+                    
+                    
+                    isFire = false;
+                    
+                    
+
+                }
+
 
             }
 
         }
+
+
+    }
+
+    void RifleFire(GameObject target)
+    {
+
+        isFire = true;
+        
+        
+        Vector3 distanceObjects = target.gameObject.transform.position - transform.position;
+        Quaternion rotationObject = Quaternion.LookRotation(distanceObjects, Vector3.up);
+        transform.rotation = rotationObject;
+        enemyAnimator.SetBool("walk", false);
+        navMesh.isStopped = true;
+        enemyAnimator.SetBool("fireIdle", true);
+        
 
 
     }
@@ -201,7 +251,7 @@ public class EnemyController : MonoBehaviour
 
                 enemyAnimator.SetBool("walk", true);
                 target = otherObject.gameObject;
-                navMesh.SetDestination(otherObject.transform.position);
+                navMesh.SetDestination(target.transform.position);
                 isSuspect = true;
                 StopCoroutine(patrol);
 
@@ -212,7 +262,7 @@ public class EnemyController : MonoBehaviour
                 {
 
                     target = null;
-                    
+
 
                     if (transform.position != startingPoint)
                     {
