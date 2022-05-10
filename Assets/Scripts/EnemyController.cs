@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent navMesh;
     Animator enemyAnimator;
     GameObject target;
+    public GameObject mainTarget; //uzaktan vurulduğunda karakterimiz
 
     [Header("General Settings")]
     float fireDistance = 7;
@@ -46,6 +47,8 @@ public class EnemyController : MonoBehaviour
     bool patrolLock;
     public bool canPatrol;
 
+    float health;
+
 
 
 
@@ -57,6 +60,7 @@ public class EnemyController : MonoBehaviour
         enemyAnimator = GetComponent<Animator>();
         startingPoint = transform.position;
         StartCoroutine(patrolTimeControl());
+        health = 100;
 
     }
 
@@ -158,6 +162,15 @@ public class EnemyController : MonoBehaviour
             navMesh.isStopped = false;
             enemyAnimator.SetBool("walk", false);
             transform.rotation = Quaternion.Euler(0, 180, 0);
+            
+            if (canPatrol)
+            {
+                isPatrol = false;
+                patrolTime = StartCoroutine(patrolTimeControl());
+                StopCoroutine(patrol);
+
+            }
+
             isPatrol = false;
             patrolTime = StartCoroutine(patrolTimeControl());
             StopCoroutine(patrol);
@@ -193,8 +206,8 @@ public class EnemyController : MonoBehaviour
             if (otherObject.gameObject.CompareTag("Player"))
             {
 
-                
-                
+
+
                 RifleFire(otherObject.gameObject);
 
 
@@ -241,20 +254,30 @@ public class EnemyController : MonoBehaviour
         if (Physics.Raycast(firePoint.transform.position, firePoint.transform.forward, out hit, range))
         {
             Color colorBlue = Color.blue;
-            Vector3 changePosition=new Vector3(target.transform.position.x,target.transform.position.y+1.2f,target.transform.position.z);
+            Vector3 changePosition = new Vector3(target.transform.position.x, target.transform.position.y + 1.2f, target.transform.position.z);
             Debug.DrawLine(firePoint.transform.position, changePosition, colorBlue);
 
             if (Time.time > feverFrequency_1)
             {
-                
+
+
+
+
                 hit.transform.gameObject.GetComponent<PlayerController>().healthStatus(impactStrength);
                 Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
+
+                if (!sounds[0].isPlaying)
+                {
+                    sounds[0].Play();
+                    effects[0].Play();
+                }
+
                 feverFrequency_1 = Time.time + feverFrequency_2;
 
             }
 
-            
-            
+
+
 
         }
 
@@ -275,11 +298,25 @@ public class EnemyController : MonoBehaviour
             if (otherObject.gameObject.CompareTag("Player"))
             {
 
-                enemyAnimator.SetBool("walk", true);
+                if(enemyAnimator.GetBool("run")){
+
+                    enemyAnimator.SetBool("run", false);
+                    enemyAnimator.SetBool("walk", true);
+                }else{
+                    enemyAnimator.SetBool("walk", true);
+                }
+                
+                
+                
+                
                 target = otherObject.gameObject;
                 navMesh.SetDestination(target.transform.position);
                 isSuspect = true;
-                StopCoroutine(patrol);
+                if (canPatrol)
+                {
+                    StopCoroutine(patrol);
+                }
+
 
             }
             else
@@ -304,7 +341,11 @@ public class EnemyController : MonoBehaviour
                     }
 
                     isSuspect = false;
-                    patrol = StartCoroutine(PatrolTecnicalProcess(patrolControl())); //bunu kaldırırsam yalnızca hedefe odaklanıyor devriyeye geri dönmüyor
+                    if (canPatrol)
+                    {
+                        patrol = StartCoroutine(PatrolTecnicalProcess(patrolControl())); //bunu kaldırırsam yalnızca hedefe odaklanıyor devriyeye geri dönmüyor
+                    }
+
                 }
 
 
@@ -314,6 +355,33 @@ public class EnemyController : MonoBehaviour
 
         }
 
+
+    }
+
+
+    public void healthStatus(float impact)
+    {
+
+        health -= impact;
+        //healthBar.fillAmount = health / 100;
+
+        if (!isSuspect)  //beni uzaktan vurdu
+        {
+            enemyAnimator.SetBool("run", true);
+
+            navMesh.SetDestination(mainTarget.transform.position);
+
+        }
+
+
+
+        if (health <= 0)
+        {
+
+            enemyAnimator.Play("died");
+            Destroy(gameObject, 10f);
+
+        }
 
     }
 

@@ -135,8 +135,11 @@ public class PlayerController : MonoBehaviour
         health -= impact;
         healthBar.fillAmount = health / 100;
 
-        if (health <= 0)
+        if (health <= 0){
+            //ölme canvası çıkacak // oyun bitti
             Debug.Log("Died");
+        }
+            
     }
 
     void InputCameraRotation()

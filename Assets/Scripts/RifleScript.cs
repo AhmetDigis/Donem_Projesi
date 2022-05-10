@@ -86,78 +86,95 @@ public class RifleScript : MonoBehaviour
         {
 
 
-            Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
-            Debug.Log(hit.transform.gameObject.name);
+            if (hit.transform.gameObject.CompareTag("Enemy"))
+            {
+                hit.transform.gameObject.GetComponent<EnemyController>().healthStatus(impactStrength);
+                Instantiate(effects[2], hit.point, Quaternion.LookRotation(hit.normal));
+            }
+            else
+            {
+                Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
+
+            }
+
+
+            
 
         }
 
 
     }
 
-    IEnumerator ReloadControl(int secondValue){
+    IEnumerator ReloadControl(int secondValue)
+    {
         if (bulletsRemaining < magazineCapacity && totalBullet != 0)
+        {
+            playerReload.SetLayerWeight(4, 1);
+            playerReload.SetTrigger("choseReload");
+            if (!sounds[2].isPlaying)
             {
-                playerReload.SetLayerWeight(4, 1);
-                playerReload.SetTrigger("choseReload");               
-                if(!sounds[2].isPlaying){
-                    sounds[2].Play();
-                }
-                yield return new WaitForSeconds(secondValue);
-                ReloadTecnikalFunction();
-                
-
+                sounds[2].Play();
             }
+            yield return new WaitForSeconds(secondValue);
+            ReloadTecnikalFunction();
+
+
+        }
 
     }
 
-    void ReloadTecnikalFunction(){
+    void ReloadTecnikalFunction()
+    {
 
         if (bulletsRemaining == 0)
-                { //mermi yok
+        { //mermi yok
 
-                    if (totalBullet <= magazineCapacity)
-                    {
-                        bulletsRemaining = totalBullet;
-                        totalBullet = 0;
-                    }
-                    else
-                    {
-                        totalBullet -= magazineCapacity;
-                        bulletsRemaining = magazineCapacity;
-                    }
+            if (totalBullet <= magazineCapacity)
+            {
+                bulletsRemaining = totalBullet;
+                totalBullet = 0;
+            }
+            else
+            {
+                totalBullet -= magazineCapacity;
+                bulletsRemaining = magazineCapacity;
+            }
 
 
+        }
+        else
+        { //mermi var
+
+            if (totalBullet <= magazineCapacity)
+            {
+                int lastBullet = bulletsRemaining + totalBullet;
+
+                if (lastBullet > magazineCapacity)
+                {
+
+                    bulletsRemaining = magazineCapacity;
+                    totalBullet = lastBullet - magazineCapacity;
                 }
                 else
-                { //mermi var
+                {
 
-                    if (totalBullet <= magazineCapacity)
-                    {
-                        int lastBullet = bulletsRemaining + totalBullet;
-
-                        if (lastBullet > magazineCapacity){
-
-                            bulletsRemaining = magazineCapacity;
-                            totalBullet = lastBullet - magazineCapacity;
-                        }else{
-
-                            bulletsRemaining += totalBullet;
-                            totalBullet = 0;
-
-                        }
-                    }
-                    else
-                    {
-                        int currentBullet = magazineCapacity - bulletsRemaining;
-                        totalBullet -= currentBullet;
-                        bulletsRemaining = magazineCapacity;
-                    }
-
+                    bulletsRemaining += totalBullet;
+                    totalBullet = 0;
 
                 }
+            }
+            else
+            {
+                int currentBullet = magazineCapacity - bulletsRemaining;
+                totalBullet -= currentBullet;
+                bulletsRemaining = magazineCapacity;
+            }
 
-                Rounds_Total.text = totalBullet.ToString();
-                Bullets_Remaining.text = magazineCapacity.ToString();
+
+        }
+
+        Rounds_Total.text = totalBullet.ToString();
+        Bullets_Remaining.text = magazineCapacity.ToString();
 
     }
 
