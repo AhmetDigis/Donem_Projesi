@@ -12,6 +12,8 @@ public class doorTrigger : MonoBehaviour
     public GameObject manager;
     public GameObject targetGrabPoint;
 
+    public GameObject GrabByHand;
+
     
 
 
@@ -27,6 +29,7 @@ public class doorTrigger : MonoBehaviour
             
             
             other.GetComponent<IKAnimationManager>().GrabItem(targetGrabPoint);
+            GrabByHand.GetComponent<TwoBoneIKConstraint>().weight=1;
             
             
             StartCoroutine(GameOver(10));
@@ -40,6 +43,7 @@ public class doorTrigger : MonoBehaviour
 
             other.GetComponent<IKAnimationManager>().ReleaseItem(targetGrabPoint);
             Destroy(GetComponent<SphereCollider>());
+            GrabByHand.GetComponent<TwoBoneIKConstraint>().weight=0;
 
             
         }

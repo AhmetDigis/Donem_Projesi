@@ -35,6 +35,7 @@ public class IKAnimationManager : MonoBehaviour
 
     public void GrabItem(GameObject targetObject){
 
+        Debug.Log("neler oluyor");
         leftHandTarget=targetObject.transform;
         rigscript.weight=1;
         leftHandIKDummy.position=leftHandTarget.position;

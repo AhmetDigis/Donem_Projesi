@@ -157,9 +157,9 @@ RectTransform:
   m_Father: {fileID: 942206150}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.413}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -423.99994, y: 509}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -361, y: 78}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1651087
@@ -8444,8 +8444,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!1 &375705040
 GameObject:
   m_ObjectHideFlags: 0
@@ -16152,9 +16152,9 @@ RectTransform:
   m_Father: {fileID: 1384197991}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.413}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -424, y: 512}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -356, y: 84}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &739260129
@@ -17881,6 +17881,7 @@ MonoBehaviour:
   child: {fileID: 1184302933}
   manager: {fileID: 70294569}
   targetGrabPoint: {fileID: 2025399467}
+  GrabByHand: {fileID: 2133838342}
 --- !u!65 &795421171
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29677,7 +29678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1223687784
 Transform:
   m_ObjectHideFlags: 0
@@ -36951,9 +36952,9 @@ RectTransform:
   m_Father: {fileID: 1384197991}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.413}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -419.00006, y: 447.99997}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -350, y: 18}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1591771760
@@ -44387,9 +44388,9 @@ RectTransform:
   m_Father: {fileID: 942206150}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.413}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -419, y: 445}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -355, y: 14}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946229978
@@ -50364,7 +50365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Weight: 1
+  m_Weight: 0
   m_Data:
     m_Root: {fileID: 7025426550868174504}
     m_Mid: {fileID: 6409932981017140496}
@@ -53663,8 +53664,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!1 &616894165458341513
 GameObject:
   m_ObjectHideFlags: 0
@@ -56257,8 +56258,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!4 &1177617215331242574
 Transform:
   m_ObjectHideFlags: 0
@@ -62823,8 +62824,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!1 &3054356883141900302
 GameObject:
   m_ObjectHideFlags: 0
@@ -66819,8 +66820,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!1 &4057642722112604542
 GameObject:
   m_ObjectHideFlags: 0
@@ -71736,8 +71737,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!4 &5506191760310000237
 Transform:
   m_ObjectHideFlags: 0
@@ -74436,8 +74437,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!4 &6068112826474258467
 Transform:
   m_ObjectHideFlags: 0
@@ -78912,8 +78913,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!4 &7461263386472809933
 Transform:
   m_ObjectHideFlags: 0
