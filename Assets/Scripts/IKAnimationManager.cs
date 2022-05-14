@@ -11,6 +11,9 @@ public class IKAnimationManager : MonoBehaviour
 
     public Rig rigscript;
 
+    public Transform leftHandTarget;
+    public Transform leftHandIKDummy;
+
 
     
     public void startHeadFollow(Transform atarget){
@@ -29,6 +32,25 @@ public class IKAnimationManager : MonoBehaviour
 
     }
 
+
+    public void GrabItem(GameObject targetObject){
+
+        leftHandTarget=targetObject.transform;
+        rigscript.weight=1;
+        leftHandIKDummy.position=leftHandTarget.position;
+        
+        
+    }
+    public void ReleaseItem(GameObject targetObject){
+
+        leftHandTarget=null;
+        rigscript.weight=0;
+       
+        
+        
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -36,5 +58,6 @@ public class IKAnimationManager : MonoBehaviour
 
             headIKDummy.transform.position= target.position;
         }
+        
     }
 }

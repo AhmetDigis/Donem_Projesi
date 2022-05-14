@@ -19,6 +19,7 @@ public class WarningTrigger : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         warningMessage.SetActive(false);
+        Destroy(gameObject.GetComponent<BoxCollider>());
     }
    
 }
