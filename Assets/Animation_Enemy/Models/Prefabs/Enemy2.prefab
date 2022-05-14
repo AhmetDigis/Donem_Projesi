@@ -341,7 +341,7 @@ MonoBehaviour:
   effects:
   - {fileID: 8041178407004181921}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
-  canPatrol: 1
+  canPatrol: 0
 --- !u!195 &3472972279680545043
 NavMeshAgent:
   m_ObjectHideFlags: 0

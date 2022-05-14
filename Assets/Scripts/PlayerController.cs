@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public Image healthBar;
 
     public static float health;
+    public GameObject manager;
 
     public GameObject[] weapons;
 
@@ -111,7 +113,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("bombayı bitiri " + lastLayerIndex);
 
         SetAnimationLayerForUpperBody(lastLayerIndex);
-        //playerAnimator.SetLayerWeight(1,0);
+        
 
     }
 
@@ -136,8 +138,9 @@ public class PlayerController : MonoBehaviour
         healthBar.fillAmount = health / 100;
 
         if (health <= 0){
-            //ölme canvası çıkacak // oyun bitti
-            Debug.Log("Died");
+            
+            //manager.GetComponent<GameManager>().gameOver();
+            
         }
             
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class EnemyController : MonoBehaviour
     public GameObject mainTarget; //uzaktan vurulduğunda karakterimiz
 
     [Header("General Settings")]
-    float fireDistance = 7;
-    float SuspectDistance = 10;
+    public float fireDistance;
+    public float SuspectDistance;
     Vector3 startingPoint;
     bool isSuspect = false;
     bool isFire = false;
@@ -206,14 +207,16 @@ public class EnemyController : MonoBehaviour
             if (otherObject.gameObject.CompareTag("Player"))
             {
 
-
-
+                otherObject.GetComponent<IKAnimationManager>().startHeadFollow(transform); //IKAnimation
+                
+                
                 RifleFire(otherObject.gameObject);
 
 
             }
             else
             {
+                
                 if (isFire)
                 {
 
@@ -297,6 +300,11 @@ public class EnemyController : MonoBehaviour
 
             if (otherObject.gameObject.CompareTag("Player"))
             {
+
+                otherObject.GetComponent<IKAnimationManager>().stopHeadFollow(transform); //IKAnimation
+                
+                
+
 
                 if(enemyAnimator.GetBool("run")){
 
