@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0){
             
-            //manager.GetComponent<GameManager>().gameOver();
+            manager.GetComponent<GameManager>().gameOver();
             
         }
             

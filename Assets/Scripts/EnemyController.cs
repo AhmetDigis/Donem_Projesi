@@ -163,7 +163,7 @@ public class EnemyController : MonoBehaviour
             navMesh.isStopped = false;
             enemyAnimator.SetBool("walk", false);
             transform.rotation = Quaternion.Euler(0, 180, 0);
-            
+
             if (canPatrol)
             {
                 isPatrol = false;
@@ -208,15 +208,15 @@ public class EnemyController : MonoBehaviour
             {
 
                 otherObject.GetComponent<IKAnimationManager>().startHeadFollow(transform); //IKAnimation
-                
-                
+
+
                 RifleFire(otherObject.gameObject);
 
 
             }
             else
             {
-                
+
                 if (isFire)
                 {
 
@@ -263,11 +263,26 @@ public class EnemyController : MonoBehaviour
             if (Time.time > feverFrequency_1)
             {
 
+                if (hit.transform.gameObject.CompareTag("Player"))
+                {
+
+
+                    hit.transform.gameObject.GetComponent<PlayerController>().healthStatus(impactStrength);
+                    Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
 
 
 
-                hit.transform.gameObject.GetComponent<PlayerController>().healthStatus(impactStrength);
-                Instantiate(effects[1], hit.point, Quaternion.LookRotation(hit.normal));
+                }
+                else 
+                {
+                   Instantiate(effects[2], hit.point, Quaternion.LookRotation(hit.normal));
+                        
+
+                }
+
+
+
+
 
                 if (!sounds[0].isPlaying)
                 {
@@ -302,21 +317,24 @@ public class EnemyController : MonoBehaviour
             {
 
                 otherObject.GetComponent<IKAnimationManager>().stopHeadFollow(transform); //IKAnimation
-                
-                
 
 
-                if(enemyAnimator.GetBool("run")){
+
+
+                if (enemyAnimator.GetBool("run"))
+                {
 
                     enemyAnimator.SetBool("run", false);
                     enemyAnimator.SetBool("walk", true);
-                }else{
+                }
+                else
+                {
                     enemyAnimator.SetBool("walk", true);
                 }
-                
-                
-                
-                
+
+
+
+
                 target = otherObject.gameObject;
                 navMesh.SetDestination(target.transform.position);
                 isSuspect = true;
@@ -387,7 +405,7 @@ public class EnemyController : MonoBehaviour
         {
 
             enemyAnimator.Play("died");
-            Destroy(gameObject, 10f);
+            Destroy(gameObject, 5f);
 
         }
 

@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.03
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -27,7 +27,7 @@ RenderSettings:
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 01f4eb1c73693428d923f1520032e7f9, type: 2}
-  m_HaloStrength: 0.5
+  m_HaloStrength: 0.875
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -1579,7 +1579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68312313}
   m_LocalRotation: {x: 0.0016415825, y: 0.88254434, z: -0.0030810707, w: 0.4702162}
-  m_LocalPosition: {x: -11.76, y: -0.14, z: 0.77}
+  m_LocalPosition: {x: -9.9, y: -0.16, z: -0.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1167016190}
@@ -1773,6 +1773,7 @@ MonoBehaviour:
   effects:
   - {fileID: 1954829112}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!95 &68312319
 Animator:
@@ -13287,8 +13288,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.000002861023, y: 0.000002861023}
+  m_SizeDelta: {x: 494.2689, y: 494.2689}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &614254186
 MonoBehaviour:
@@ -13303,14 +13304,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.023584902, b: 0.023584902, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 2bf8f1be7973341489ae65be1d288a5d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21052,6 +21053,7 @@ MonoBehaviour:
   effects:
   - {fileID: 1513674577}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!95 &897904477
 Animator:
@@ -23105,7 +23107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991342419}
   m_LocalRotation: {x: 0.0016415825, y: 0.88254434, z: -0.0030810707, w: 0.4702162}
-  m_LocalPosition: {x: -7.36, y: -0.15, z: 5.2}
+  m_LocalPosition: {x: -6.194, y: -0.163, z: 3.144}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 770277344}
@@ -23299,6 +23301,7 @@ MonoBehaviour:
   effects:
   - {fileID: 882860062}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!95 &991342425
 Animator:
@@ -29450,6 +29453,7 @@ MonoBehaviour:
   effects:
   - {fileID: 1744342584}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!95 &1215600323
 Animator:
@@ -29678,7 +29682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1223687784
 Transform:
   m_ObjectHideFlags: 0
@@ -30052,6 +30056,7 @@ MonoBehaviour:
   effects:
   - {fileID: 1797943441}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 1
 --- !u!95 &1247877267
 Animator:
@@ -32068,6 +32073,7 @@ MonoBehaviour:
   effects:
   - {fileID: 648940275}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!95 &1335230124
 Animator:
@@ -43192,6 +43198,7 @@ MonoBehaviour:
   effects:
   - {fileID: 1625756765}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 1
 --- !u!95 &1891384689
 Animator:
@@ -46864,6 +46871,7 @@ MonoBehaviour:
   effects:
   - {fileID: 929025655}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!95 &2012570935
 Animator:
@@ -50729,6 +50737,7 @@ MonoBehaviour:
   effects:
   - {fileID: 2125435422}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 1
 --- !u!95 &2138757331
 Animator:
@@ -52343,6 +52352,7 @@ MonoBehaviour:
   effects:
   - {fileID: 1962958809}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!114 &395919883780176492
 MonoBehaviour:
@@ -52398,6 +52408,7 @@ MonoBehaviour:
   effects:
   - {fileID: 661354077}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!4 &398543036657087699
 Transform:
@@ -63282,6 +63293,7 @@ MonoBehaviour:
   effects:
   - {fileID: 402824594}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 1
 --- !u!95 &3166231813629249083
 Animator:
@@ -70376,6 +70388,7 @@ MonoBehaviour:
   effects:
   - {fileID: 7865377175051805703}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 1
 --- !u!114 &5102254491418482986
 MonoBehaviour:
@@ -70431,6 +70444,7 @@ MonoBehaviour:
   effects:
   - {fileID: 7865377175398707948}
   - {fileID: 198000013597187216, guid: 83e55d3418297934fab882559d009285, type: 3}
+  - {fileID: 198000012529019072, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   canPatrol: 0
 --- !u!1 &5108910594815249002
 GameObject:
